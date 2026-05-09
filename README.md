@@ -1,8 +1,6 @@
 # shnwazdev-quoteapi
 
-Vercel-ready quote image generation API.
-
-Generator for creating images with "quotes" from Telegram messages.
+A Vercel-hosted API for generating Telegram-style quote images from JSON message data. It can return base64 image JSON from `/generate`, direct image files from `/generate.png` or `/generate.webp`, and legacy-compatible responses from `/quote/generate`.
 
 ## Table of Contents
 - [quote-api](#quote-api)
