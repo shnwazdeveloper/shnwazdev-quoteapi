@@ -91,6 +91,7 @@ route.get('/health', (ctx) => {
 route.get('/', (ctx) => site.sendHtml(ctx, site.landingPage(ctx)))
 route.get('/docs', (ctx) => site.sendHtml(ctx, site.docsPage(ctx)))
 route.get('/brand.png', site.sendBrandImage)
+route.get('/favicon.ico', site.sendBrandImage)
 route.get('/generate', apiInfo)
 route.get('/generate.png', apiInfo)
 route.get('/generate.webp', apiInfo)
