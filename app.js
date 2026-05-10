@@ -7,6 +7,7 @@ const ratelimit = require('koa-ratelimit')
 const Router = require('koa-router')
 const Koa = require('koa')
 const { loadFonts } = require('./utils')
+const site = require('./site')
 
 const app = new Koa()
 let fontsReady
@@ -61,8 +62,10 @@ function apiInfo (ctx) {
       health: `${origin}/health`,
       generate: `${origin}/generate`,
       generatePng: `${origin}/generate.png`,
+      generateWebp: `${origin}/generate.webp`,
       legacyGenerate: `${origin}/quote/generate`,
-      legacyGeneratePng: `${origin}/quote/generate.png`
+      legacyGeneratePng: `${origin}/quote/generate.png`,
+      legacyGenerateWebp: `${origin}/quote/generate.webp`
     },
     usage: {
       method: 'POST',
@@ -85,11 +88,15 @@ route.get('/health', (ctx) => {
   ctx.body = { status: 'ok', timestamp: Date.now() }
 })
 
-route.get('/', apiInfo)
+route.get('/', (ctx) => site.sendHtml(ctx, site.landingPage(ctx)))
+route.get('/docs', (ctx) => site.sendHtml(ctx, site.docsPage(ctx)))
+route.get('/brand.png', site.sendBrandImage)
 route.get('/generate', apiInfo)
 route.get('/generate.png', apiInfo)
+route.get('/generate.webp', apiInfo)
 route.get('/quote/generate', apiInfo)
 route.get('/quote/generate.png', apiInfo)
+route.get('/quote/generate.webp', apiInfo)
 
 route.use('/*', routes.routeApi.routes())
 
